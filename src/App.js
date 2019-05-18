@@ -1,17 +1,15 @@
-import React from 'react';
-import { Route } from 'react-router-dom';
-import Augur from 'augur.js';
-import Web3 from 'web3';
-
 import './App.css';
+
+import Augur from 'augur.js';
+import GlobalContext from './GlobalContext';
 import Header from './modules/header/Header';
 import Home from './modules/home/Home';
 import Manual from './modules/manual/Manual';
 import Portfolio from './modules/portfolio/Portfolio';
+import React from 'react';
+import { Route } from 'react-router-dom';
 import Services from './modules/services/Services';
-
-import GlobalContext from './GlobalContext';
-
+import Web3 from 'web3';
 
 class App extends React.Component {
   constructor(props) {

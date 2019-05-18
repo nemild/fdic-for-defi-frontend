@@ -110,7 +110,6 @@ var iconStyle = {
     marginLeft: "auto",
     marginRight: "auto",
     display: "block"
-    // needs to be centered
 }
 
 var serviceNameStyle = {

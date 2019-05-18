@@ -1,10 +1,14 @@
 import React from 'react';
+import PageCard from '../components/PageCard';
 
 function Portfolio() {
+  const header = <div>header</div>
+  const body = <div>body</div>
   return (
-    <div>
-      This is Portfolio page
-    </div>
+    <PageCard
+        header={header}
+        body={body}
+    />
   );
 }
 

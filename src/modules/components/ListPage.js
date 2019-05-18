@@ -17,9 +17,17 @@ function ListPage(props) {
             <tbody>
                 <ListCell 
                     icon="./assets/img/brand/favicon.png"
-                    serviceName="dydx"
+                    serviceName="Dydx"
                     eth="3"
                     percentage="100%"
+                    percentageIcon="./assets/img/svg/done.svg"
+                />
+                 <ListCell 
+                    icon="./assets/img/brand/favicon.png"
+                    serviceName="Dydx"
+                    eth="3"
+                    percentage="100%"
+                    percentageIcon="./assets/img/svg/done.svg"
                 />
             </tbody>
         </table>

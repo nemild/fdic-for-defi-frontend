@@ -45,8 +45,8 @@ const iconStyle = {
 
 const textStyle = {
     fontSize: '18px',
-    fontWeight: 'bold'
-
+    fontWeight: 'bold',
+    textAlign: "right"
 }
 
 const nameStyle = {

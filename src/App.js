@@ -44,7 +44,7 @@ class App extends React.Component {
   }
 
   async setupGlobalContext() {
-    window.ethereum.enable();
+    // window.ethereum.enable();
     let web3 = new Web3(Web3.givenProvider || 'http://localhost:8545');
     let userAddress = await new Promise((resolve, reject) => {
       web3.eth.getAccounts().then((accounts) => {

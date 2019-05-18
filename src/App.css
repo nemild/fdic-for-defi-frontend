@@ -15,3 +15,24 @@
   font-size: 16px;
   color: rgba(0, 0, 0, 0.5);
 }
+
+.table td {
+  border-top: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  color: #000000;
+}
+
+.card .table td {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.card-body {
+  padding-top: 0px;
+}
+
+.App {
+  padding-left: 20px;
+  padding-right: 20px;
+}

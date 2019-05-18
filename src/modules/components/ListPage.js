@@ -10,20 +10,46 @@ function ListPage(props) {
     </div>
   )
 
-  //"./assets/img/brand/favicon.png"
+  const protocols = [
+    {
+      icon: "./logos/0x-color.svg",
+      serviceName: "0x",
+    },
+    {
+      icon: "./logos/augur-color.svg",
+      serviceName: "Augur",
+    },
+    {
+      icon: "./logos/cheesewizard-color.svg",
+      serviceName: "Cheese Wizard",
+    },
+    {
+      icon: "./logos/compound-color.png",
+      serviceName: "Compound",
+    },
+    {
+      icon: "./logos/dydx-color.svg",
+      serviceName: "Dydx",
+    },
+    {
+      icon: "./logos/maker-color.svg",
+      serviceName: "Maker",
+    },
+  ]
+
   const body = (
     <div>
       <div className="table-responsive">
         <table className="table align-items-center">
             <tbody>
-                {props.lists.map((list) => {
+                {protocols.map((list, id) => {
                     return(
-                        <ListCell 
+                        <ListCell
+                            key={id}
                             icon={list.icon}
                             serviceName={list.serviceName}
-                            eth={list.eth}
-                            percentage={list.percentage}
-                            percentageIcon={list.percentageIcon}
+                            eth={props.lists[list.serviceName].eth}
+                            percentage={props.lists[list.serviceName].percentage}
                         />
                     )
                 })}

@@ -28,7 +28,6 @@ const iconStyle = {
 }
 
 const textStyle = {
-    fontFamily: 'SF Pro Text',
     color: 'black',
     fontSize: '16px'
 }

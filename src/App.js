@@ -9,6 +9,7 @@ import Home from './modules/home/Home';
 import Manual from './modules/manual/Manual';
 import Portfolio from './modules/portfolio/Portfolio';
 import Services from './modules/services/Services';
+import HowItWorks from './modules/home/HowItWorks';
 
 import GlobalContext from './GlobalContext';
 
@@ -70,6 +71,7 @@ class App extends React.Component {
       <div className="App">
         <Header hideName={window.location.pathname === '/'} />
         <Route path='/' exact component={Home}/>
+        <Route path='/howitworks' component={HowItWorks}/>
         <Route path='/portfolio' component={Portfolio}/>
         <Route path='/services' component={Services} />
         <GlobalContext.Provider value={this.state.globalContext}>

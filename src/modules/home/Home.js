@@ -1,9 +1,6 @@
 import React from 'react';
 import {Redirect} from "react-router-dom";
-// import Logos from '../home/Logos';
 import Button from '../shared/Button';
-import SimpleSlider from '../shared/SimpleSlider'
-// import Card from '../shared/Card';
 
 import GlobalContext from '../../GlobalContext';
 
@@ -47,16 +44,16 @@ class Home extends React.Component {
         <br />
         <div className="row">
           <div className="col-sm-12 center">
-            <img style={logoStyle} src="/logos/maker.svg" />
-            <img style={logoStyle} src="/logos/compound.svg" />
-            <img style={logoStyle} src="/logos/dYdX.svg" />
+            <img style={logoStyle} src="/logos/maker.svg" alt="maker-icon" />
+            <img style={logoStyle} src="/logos/compound.svg" alt="compound-icon" />
+            <img style={logoStyle} src="/logos/dYdX.svg" alt="dYdX-con"/>
           </div>
         </div>
         <div className="row">
           <div className="col-sm-12 center">
-            <img style={logoStyle} src="/logos/0x.svg" />
-            <img style={logoStyle} src="/logos/augur.svg" />
-            <img style={logoStyle} src="/logos/cheesewizard.svg" />
+            <img style={logoStyle} src="/logos/0x.svg" alt="0x-icon" />
+            <img style={logoStyle} src="/logos/augur.svg" alt="augur-icon" />
+            <img style={logoStyle} src="/logos/cheesewizard.svg" alt="cheesewizard-icon" />
           </div>
         </div>
 

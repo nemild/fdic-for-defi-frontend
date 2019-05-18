@@ -19,12 +19,14 @@ class App extends React.Component {
 
     this.state = {
       globalContext: {
+        connected: false,
         web3: null,
         userAddress: null,
         augur: null,
+        setupGlobalContext: this.setupGlobalContext
       }
     };
-    this.setupGlobalContext();
+    this.state.globalContext.setupGlobalContext = this.state.globalContext.setupGlobalContext.bind(this);
   }
 
   async setupAugur() {
@@ -44,7 +46,11 @@ class App extends React.Component {
   }
 
   async setupGlobalContext() {
-    // window.ethereum.enable();
+    if (window.ethereum) {
+      await window.ethereum.enable();
+    } else {
+      alert('Please install a Web3 provider e.g. Metamask');
+    }
     let web3 = new Web3(Web3.givenProvider || 'http://localhost:8545');
     let userAddress = await new Promise((resolve, reject) => {
       web3.eth.getAccounts().then((accounts) => {
@@ -57,6 +63,7 @@ class App extends React.Component {
         ...state,
         globalContext: {
           ...state.globalContext,
+          connected: true,
           web3,
           userAddress,
           augur
@@ -69,7 +76,9 @@ class App extends React.Component {
     return (
       <div className="App">
         <Header hideName={window.location.pathname === '/'} />
-        <Route path='/' exact component={Home}/>
+        <GlobalContext.Provider value={this.state.globalContext}>
+          <Route path='/' exact component={Home}/>
+        </GlobalContext.Provider>
         <Route path='/portfolio' component={Portfolio}/>
         <Route path='/services' component={Services} />
         <GlobalContext.Provider value={this.state.globalContext}>

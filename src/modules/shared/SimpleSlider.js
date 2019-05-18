@@ -1,10 +1,11 @@
-import React from 'react';
-import Slider from 'rc-slider';
-import Tooltip from 'rc-tooltip';
 // We can just import Slider or Range to reduce bundle size
 // import Slider from 'rc-slider/lib/Slider';
 // import Range from 'rc-slider/lib/Range';
 import 'rc-slider/assets/index.css';
+
+import React from 'react';
+import Slider from 'rc-slider';
+import Tooltip from 'rc-tooltip';
 
 const createSliderWithTooltip = Slider.createSliderWithTooltip;
 const Range = createSliderWithTooltip(Slider.Range);
@@ -29,7 +30,7 @@ var handle = (props) => {
 function SimpleSlider(props) {
     return (
         <div>
-        <Slider min={0} max={100} defaultValue={(props && props.value) || 0} handle={handle} />
+        <Slider onChange={props.onChange} min={0} max={100} defaultValue={(props && props.value) || 0} handle={handle} />
       </div>
     );
 }

@@ -14,12 +14,19 @@ class Manual extends React.Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
-      web3: null
+      loading: false
     };
+
+    this.approve = this.approve.bind(this);
+    this.buyShares = this.buyShares.bind(this);
   }
 
   componentDidMount() {
+    if (!this.context.connected) {
+      this.context.setupGlobalContext();
+    }
     console.log('context', this.context);
   }
 
@@ -28,17 +35,48 @@ class Manual extends React.Component {
   }
 
   async approve(e) {
+    const web3 = this.context.web3;
+
+    const AUGUR_ADDRESS = augurAddresses[4].Augur;
+    const CASH_ADDRESS = augurAddresses[RINKEBY].Cash;
+
+    const cashContract = new web3.eth.Contract(
+      augurABIs.Cash,
+      augurAddresses[RINKEBY].Cash
+    );
+    this.setState({loading: true});
+    //await this.context.augur.api.Cash.approve({
+      //_spender: AUGUR_ADDRESS,
+      //_value: 3141,
+      //tx: {
+        //to: CASH_ADDRESS,
+        //gas: '0x632ea0' 
+      //},
+      //accountType: 'privateKey',
+      //address: this.context.userAddress,
+      //onSent: function (result) { console.log(result); },
+      //onSuccess: function (result) { console.log(result); },
+      //onFailed: function (result) { console.log(result); }
+    //})
+    await cashContract.methods.approve(AUGUR_ADDRESS, 10000)
+      .send({
+        from: this.context.userAddress
+      })
+      .catch(alert)
+      .finally(() => {
+        this.setState({loading: false});
+      });
+
+
+
+
+
     //e.preventDefault();
     //console.log('userAddress', userAddress);
     //const augur = new Augur();
-    //const AUGUR_ADDRESS = augurAddresses[4].Augur;
-    //const CASH = augurAddresses[RINKEBY].Cash;
     ////console.log('addresses', augurAddresses);
     ////console.log('abi', augurABIs);
 
-    //const cashContract = new web3.eth.Contract(augurABIs.Cash, augurAddresses[RINKEBY].Cash);
-    //window.cashContract = cashContract;
-    //await cashContract.methods.approve(AUGUR_ADDRESS, 10000).send({from: userAddress});
     //window.augur = augur;
     //setTimeout(() => {
       //console.log('allowance');
@@ -52,16 +90,17 @@ class Manual extends React.Component {
       //augur.connect({ethereumNode, augurNode}, console.log);
     //}, 1000);
     ////setTimeout(() => {
-      ////augur.api.Cash.allowance({
-        ////_owner: userAddress,
-        ////_spender: AUGUR_ADDRESS,
-      ////}, function(error, allowance) {
-        ////console.log(allowance); 
-      ////});
     ////}, 2000);
   }
 
-  async buy() {
+  async buyShares() {
+    let AUGUR_ADDRESS = augurAddresses[4].Augur;
+    this.context.augur.api.Cash.allowance({
+      _owner: this.context.userAddress,
+      _spender: AUGUR_ADDRESS,
+    }, function(error, allowance) {
+      console.log(allowance); 
+    });
   }
 
   render() {
@@ -73,9 +112,17 @@ class Manual extends React.Component {
         <br></br>
         <br></br>
         <br></br>
-        <button onClick={this.test}>
-          Click me
+        <button onClick={this.buyShares}>
+          Buy yes shares
         </button>
+        <button onClick={this.approve}>
+          Approve WETH
+        </button>
+        {
+          this.state.loading && <div>
+            Loading...
+          </div>
+        }
       </div>
     );
   }

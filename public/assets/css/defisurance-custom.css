@@ -31,6 +31,11 @@
     text-align: center;
 }
 
+.text-center {
+    text-align: center;
+}
+
+
 .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
     background: #05B169;
     border:none;

@@ -1,17 +1,16 @@
-import React from 'react';
-import { Route } from 'react-router-dom';
-import Augur from 'augur.js';
-import Web3 from 'web3';
-
 import './App.css';
+
+import Augur from 'augur.js';
 import Header from './modules/header/Header';
 import Home from './modules/home/Home';
 import Manual from './modules/manual/Manual';
 import Portfolio from './modules/portfolio/Portfolio';
+import React from 'react';
+import { Route } from 'react-router-dom';
 import Services from './modules/services/Services';
-
+import HowItWorks from './modules/home/HowItWorks';
 import GlobalContext from './GlobalContext';
-
+import Web3 from 'web3';
 
 class App extends React.Component {
   constructor(props) {
@@ -19,12 +18,14 @@ class App extends React.Component {
 
     this.state = {
       globalContext: {
+        connected: false,
         web3: null,
         userAddress: null,
         augur: null,
+        setupGlobalContext: this.setupGlobalContext
       }
     };
-    this.setupGlobalContext();
+    this.state.globalContext.setupGlobalContext = this.state.globalContext.setupGlobalContext.bind(this);
   }
 
   async setupAugur() {
@@ -44,7 +45,11 @@ class App extends React.Component {
   }
 
   async setupGlobalContext() {
-    window.ethereum.enable();
+    if (window.ethereum) {
+      await window.ethereum.enable();
+    } else {
+      alert('Please install a Web3 provider e.g. Metamask');
+    }
     let web3 = new Web3(Web3.givenProvider || 'http://localhost:8545');
     let userAddress = await new Promise((resolve, reject) => {
       web3.eth.getAccounts().then((accounts) => {
@@ -57,6 +62,7 @@ class App extends React.Component {
         ...state,
         globalContext: {
           ...state.globalContext,
+          connected: true,
           web3,
           userAddress,
           augur
@@ -68,8 +74,11 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <Header hideName={false} />
-        <Route path='/' exact component={Home}/>
+        <Header hideName={window.location.pathname === '/'} />
+        <Route path='/howitworks' component={HowItWorks}/>
+        <GlobalContext.Provider value={this.state.globalContext}>
+          <Route path='/' exact component={Home}/>
+        </GlobalContext.Provider>
         <Route path='/portfolio' component={Portfolio}/>
         <Route path='/services' component={Services} />
         <GlobalContext.Provider value={this.state.globalContext}>

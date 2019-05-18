@@ -6,6 +6,15 @@ import React from 'react';
 
 function Button(props) {
     var colors = {};
+    var disabledStyle = {};
+
+    if (props.disabled) {
+        disabledStyle = {
+            cursor: "auto",
+            opacity: 0.5
+        }
+    }
+
     if (props.invertColors) {
         colors = {
             backgroundColor: '#ffffff',
@@ -16,7 +25,7 @@ function Button(props) {
 
     return (
         <div>
-            <div onClick={props.onClick} className="btn btn-primary rounded-pill btn-icon mt-4 defi-button" style={{...customStyle, ...colors }}>
+            <div onClick={props.onClick} className="btn btn-primary rounded-pill btn-icon mt-4 defi-button" style={{...customStyle, ...colors, ...disabledStyle }}>
                 <span className="btn-inner--text">{props.title}</span>
               </div>
         </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import PageCard from './PageCard';
+import ListCell from './ListCell';
 
 function ListPage(props) {
   const header = (
@@ -11,7 +12,18 @@ function ListPage(props) {
 
   const body = (
     <div>
-      body
+      <div className="table-responsive">
+        <table className="table align-items-center">
+            <tbody>
+                <ListCell 
+                    icon="./assets/img/brand/favicon.png"
+                    serviceName="dydx"
+                    eth="3"
+                    percentage="100%"
+                />
+            </tbody>
+        </table>
+      </div>
     </div>
   )
 
@@ -22,5 +34,5 @@ function ListPage(props) {
     />
   );
 }
-
+  
 export default ListPage;

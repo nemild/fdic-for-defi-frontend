@@ -11,7 +11,7 @@ function Home() {
         <div>defisurance</div>
       </div>
       <div style={defaultFontStyle}>Insure your decentralized deposits</div>
-      <div className="row">
+      <div className="row center">
         <Button title="Get started" invertColors={true} />
       </div>
       <br />

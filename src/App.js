@@ -68,7 +68,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <Header hideName={false} />
+        <Header hideName={window.location.pathname === '/'} />
         <Route path='/' exact component={Home}/>
         <Route path='/portfolio' component={Portfolio}/>
         <Route path='/services' component={Services} />

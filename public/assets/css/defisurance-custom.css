@@ -1,3 +1,9 @@
 .logo {
     font-family: 'Ramaraja', serif;
+    color: white;
+    font-size: 32px;
+}
+
+.background {
+    background-color: #05b169;
 }

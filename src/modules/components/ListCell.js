@@ -3,7 +3,7 @@ import React from 'react';
 function ListCell(props) {
   return (
     <tr style={cellStyle}>
-        <td width="20%">
+        <td width="30%">
             <img src={props.icon} style={iconStyle} alt="service-icon"/>
         </td>
         <td style={textStyle}>
@@ -11,8 +11,8 @@ function ListCell(props) {
             <div>{props.eth} ETH</div>
         </td>
         <td width="20%">
-            <span>{props.percentage} </span>
-            <img src={props.percentageIcon} alt="done-icon" />
+            <span style={textStyle}>{props.percentage} </span>
+            <img src={props.percentageIcon} style={percentageIconStyle} alt="done-icon" />
         </td>
     </tr>
   );
@@ -31,6 +31,11 @@ const textStyle = {
     fontFamily: 'SF Pro Text',
     color: 'black',
     fontSize: '16px'
+}
+
+const percentageIconStyle = {
+    width: '16px',
+    height: '16px'
 }
 
 export default ListCell;

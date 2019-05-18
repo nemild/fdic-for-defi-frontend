@@ -1,8 +1,8 @@
 import React from 'react';
 import ListPage from '../components/ListPage';
 
-function Portfolio() {
-  const title = "Portfolio"
+function Services() {
+  const title = "Your services"
   const address = "0xlalalalalalallala"
   const protocols = [
       {
@@ -30,4 +30,4 @@ function Portfolio() {
   );
 }
 
-export default Portfolio;
+export default Services;

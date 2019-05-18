@@ -10,25 +10,23 @@ function ListPage(props) {
     </div>
   )
 
+  //"./assets/img/brand/favicon.png"
   const body = (
     <div>
       <div className="table-responsive">
         <table className="table align-items-center">
             <tbody>
-                <ListCell 
-                    icon="./assets/img/brand/favicon.png"
-                    serviceName="Dydx"
-                    eth="3"
-                    percentage="100%"
-                    percentageIcon="./assets/img/svg/done.svg"
-                />
-                 <ListCell 
-                    icon="./assets/img/brand/favicon.png"
-                    serviceName="Dydx"
-                    eth="3"
-                    percentage="100%"
-                    percentageIcon="./assets/img/svg/done.svg"
-                />
+                {props.lists.map((list) => {
+                    return(
+                        <ListCell 
+                            icon={list.icon}
+                            serviceName={list.serviceName}
+                            eth={list.eth}
+                            percentage={list.percentage}
+                            percentageIcon={list.percentageIcon}
+                        />
+                    )
+                })}
             </tbody>
         </table>
       </div>

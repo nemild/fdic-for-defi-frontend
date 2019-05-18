@@ -1,13 +1,14 @@
 import React from 'react';
-import PageCard from '../components/PageCard';
+import ListPage from '../components/ListPage';
 
 function Portfolio() {
-  const header = <div>header</div>
-  const body = <div>body</div>
+  const title = "Portfolio"
+  const address = "0xlalalalalalallala"
+
   return (
-    <PageCard
-        header={header}
-        body={body}
+    <ListPage 
+      title = {title}
+      address = {address}
     />
   );
 }

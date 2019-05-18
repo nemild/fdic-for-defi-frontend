@@ -1,3 +1,17 @@
 .card-header {
   border-bottom: 0px;
 }
+
+.pagecard {
+  font-family: "SF Pro Text";
+}
+
+.pagecard .title {
+  font-size: 40px;
+  color: #000000;
+}
+
+.pagecard .subtitle {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.5);
+}

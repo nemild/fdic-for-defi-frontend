@@ -26,10 +26,50 @@ class App extends React.Component {
         web3: null,
         userAddress: null,
         augur: null,
-        setupGlobalContext: this.setupGlobalContext
+        setupGlobalContext: this.setupGlobalContext,
+        setupTorus: this.setupTorus
       }
     };
-    this.state.globalContext.setupGlobalContext = this.state.globalContext.setupGlobalContext.bind(this);
+    this.state.globalContext.setupGlobalContext = this.state.globalContext.setupGlobalContext.bind(this)
+    this.state.globalContext.setupTorus = this.state.globalContext.setupTorus.bind(this);
+  }
+
+  async setupTorus() {
+    console.log('============setupTorus===============')
+    if (!window.web3) {
+
+      // no metamask
+      const script = document.createElement("script");
+
+      script.src = "https://app.tor.us/embed.min.js";
+      script.integrity = "sha384-c32GoNraGoesDeDGrz7twnQIHjtZlaFglOz/N+tSqtBt1xXwd0dCuDxJWaEH1o3m";
+      script.crossOrigin = "anonymous";
+
+      document.body.appendChild(script);
+      setTimeout(async () => {
+        let web3 = new Web3(window.web3.currentProvider)
+      
+        let userAddress = await new Promise((resolve, reject) => {
+          web3.eth.getAccounts().then((accounts) => {
+            resolve(accounts[0] || 'no account found');
+          });
+        });
+        let augur = await this.setupAugur();
+        this.setState((state) => {
+          return {
+            ...state,
+            globalContext: {
+              ...state.globalContext,
+              connected: true,
+              web3,
+              userAddress,
+              augur
+            }
+          };
+        });
+      }, 1000)
+      
+    }
   }
 
   async setupAugur() {

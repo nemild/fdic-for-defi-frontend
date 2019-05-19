@@ -73,7 +73,8 @@ class Manual extends React.Component {
       //onSuccess: function (result) { console.log(result); },
       //onFailed: function (result) { console.log(result); }
     //})
-    await cashContract.methods.approve(AUGUR_ADDRESS, 10000)
+    await cashContract.methods.approve(AUGUR_ADDRESS, '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff')
+
       .send({
         from: this.context.userAddress
       })

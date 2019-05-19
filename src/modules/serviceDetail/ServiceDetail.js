@@ -13,7 +13,7 @@ import augurAddresses from 'augur.js/src/contracts/addresses.json';
 const green = "#05B169"
 const yellow = "#FFC657"
 const red = "#DF5F67"
-const COMPOUND_MARKET = '0x098f27db05e9e466f8b2b3168a8ca9ad5822c7f2';  // Actually dYdX Rinkeby
+const COMPOUND_MARKET = '0x9be31a1d5fa96fbf18779b27cbe62e464af3e2b0';
 const OUTCOME_NO = 0;
 const OUTCOME_YES = 1;  // aka The protocol will get hacked?
 
@@ -262,26 +262,44 @@ class ServiceDetail extends React.Component {
       augurABIs.Cash,
       augurAddresses[4].Cash
     );
-    await cashContract.methods.approve(
-      augurAddresses[4].Augur,
-      1283877)
-      .send({
-        from: this.context.userAddress
-      })
-      .catch(alert)
-      .finally(() => {
-        alert('Your buy was successfully submitted!')
-      });
+    //await cashContract.methods.approve(
+      //augurAddresses[4].Augur,
+      //1283877)
+      //.send({
+        //from: this.context.userAddress
+      //})
+      //.catch(alert)
+      //.finally(() => {
+        //alert('Your buy was successfully submitted!')
+      //});
 
-    //let bestOrderID = AugurAdapter.bestOrder(
-    //await AugurAdapter.fillOrder(
-    //this.context.web3,
-    //this.context.augur,
-    //this.context.userAddress,
-    //COMPOUND_MARKET,
+    //let bestOrderID = await AugurAdapter.bestOrder(
+        //this.context.web3,
+        //this.context.augur,
+        //COMPOUND_MARKET,
     //);
+    //console.log('bestOrderID', bestOrderID);
+    //let amount = Math.floor(this.state.numSharesRequiredForFullCoverageWithNetCoverage / parseFloat(this.state.market.tickSize));
+    //console.log('', this.state.numSharesRequiredForFullCoverageWithNetCoverage, this.state.market.tickSize);
+    //console.log('AMOUNT', amount);
+    //let result = await AugurAdapter.fillOrder(
+      //this.context.web3,
+      //this.context.augur,
+      //this.context.userAddress,
+      //'0x4b3a944ca8CE8117EBA411B735bD12Ea5C7b1B10',
+      //bestOrderID,
+      //amount,
+    //);
+    //console.log('fillorder', result);
 
-    // Handle funding the insurance policy
+    // HACK: HARDCODED TX, FOR 0.03 ETH AT A TIME
+    let tx = await this.context.web3.eth.sendTransaction({
+      from: this.context.userAddress,
+      to: '0x4b3a944ca8CE8117EBA411B735bD12Ea5C7b1B10',  // not sure what this is
+      value: '30000000000000000',
+      data: '0x554de08c00000000000000000000000000000000000000000000000000000000000000000000000000000000000000009be31a1d5fa96fbf18779b27cbe62e464af3e2b00000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000012309ce5400000000000000000000000000000000000000000000000000000000000000005dc0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000039169dece54acd772a563dedbf5f64a0a31c2280b4a801b883d9f5b69bd02faf0000000000000000000000000000000000000000000000000000000000000003'
+    });
+    console.log('result', tx);
   }
 }
 

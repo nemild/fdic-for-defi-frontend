@@ -30,7 +30,9 @@ function InvestNew(props) {
                 Investing in the insurance pool is not risk free.
             </div>
             <Link to="/learn-more" style={linkStyle}>Learn more.</Link>
-            <Button disabled={buttonDisabled} title="Invest" onClick={buttonOnclick}/>
+            <div className="center col-md-10">
+                <Button disabled={buttonDisabled} title="Invest" onClick={buttonOnclick} />
+            </div>
         </div>
     )
 

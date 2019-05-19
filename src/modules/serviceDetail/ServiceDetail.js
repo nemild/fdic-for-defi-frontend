@@ -73,7 +73,7 @@ class ServiceDetail extends React.Component {
                 <div>{items}</div>
                 <SimpleSlider onChange={(value) => this.onSliderChange(value)}/>
                 <p>{this.state.actionMessage}</p>
-                <div className="row">
+                <div className="center col-lg-12">
                 <Button disabled={this.state.buttonDisabled} title={this.state.buttonTitle} onClick={ () => this.onClick() }/>
                 </div>
             </div>

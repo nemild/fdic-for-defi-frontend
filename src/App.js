@@ -8,6 +8,7 @@ import Portfolio from './modules/portfolio/Portfolio';
 import React from 'react';
 import { Route } from 'react-router-dom';
 import Services from './modules/services/Services';
+import ServiceDetail from './modules/serviceDetail/ServiceDetail';
 import HowItWorks from './modules/home/HowItWorks';
 import GlobalContext from './GlobalContext';
 import Web3 from 'web3';
@@ -81,6 +82,7 @@ class App extends React.Component {
         </GlobalContext.Provider>
         <Route path='/portfolio' component={Portfolio}/>
         <Route path='/services' component={Services} />
+        <Route path='/service-detail' component={ServiceDetail} />
         <GlobalContext.Provider value={this.state.globalContext}>
           <Route path='/manual' component={Manual}/>
         </GlobalContext.Provider>

@@ -2,30 +2,30 @@ import React from 'react';
 import ListPage from '../components/ListPage';
 
 function Services() {
-  const title = "Your services"
-  const address = "0xlalalalalalallala"
+  const title = 'Your services'
+  const address = '0xlalalalalalallala'
   const protocols = {
-    "0x": {
+    '0x': {
       eth: 3,
       percentage: 100,
     },
-    "Augur": {
+    'Augur': {
       eth: 3,
       percentage: 5,
     },
-    "Cheese Wizard": {
+    'Cheese Wizard': {
       eth: 3,
       percentage: 5,
     },
-    "Compound": {
+    'Compound': {
       eth: 3,
       percentage: 20,
     },
-    "Dydx": {
+    'Dydx': {
       eth: 3,
       percentage: 3,
     },
-    "Maker": {
+    'Maker': {
       eth: 3,
       percentage: 78,
     },

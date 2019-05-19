@@ -81,6 +81,9 @@ class ServiceDetail extends React.Component {
     if (!window.web3) {
       await this.context.setupTorus(async () => {
         if (params.serviceShortName === 'compound') {
+            if (!this.context.userAddress) {
+                return;
+            }
             let balance = await CompoundAdapter.getBalance(this.context.web3, this.context.userAddress);
             this.setState({contractValue: balance});
       

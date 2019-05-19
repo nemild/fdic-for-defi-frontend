@@ -40,7 +40,7 @@ class App extends React.Component {
       let web3 = new Web3(window.web3.currentProvider)
       let userAddress = await new Promise((resolve, reject) => {
         web3.eth.getAccounts().then((accounts) => {
-          resolve(accounts[0] || 'no account found');
+          resolve(accounts[0] || null);
         });
       });
       let augur = await this.setupAugur();

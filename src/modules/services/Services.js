@@ -46,7 +46,10 @@ class Services extends React.Component {
   async componentDidMount() {
     if (!window.web3) {
       await this.context.setupTorus(async () => {
-        console.log('balance');
+        console.log(this.context.userAddress);
+        if (!this.context.userAddress) {
+          return;
+        }
         let balance = await CompoundAdapter.getBalance(this.context.web3, this.context.userAddress);
         console.log('balance', balance);
         this.setState((state) => {
@@ -67,7 +70,7 @@ class Services extends React.Component {
     if (!this.context.connected) {
       await this.context.setupGlobalContext();
     }
-    console.log('balance');
+  
     let balance = await CompoundAdapter.getBalance(this.context.web3, this.context.userAddress);
     console.log('balance', balance);
     this.setState((state) => {

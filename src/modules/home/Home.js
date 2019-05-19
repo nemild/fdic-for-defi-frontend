@@ -35,6 +35,8 @@ class Home extends React.Component {
           </div>
         </div>
         <div style={defaultFontStyle}>Insure your decentralized deposits</div>
+        <div style={smallerStyle}>We use Augur to protect the cryptocurrency you hold in decentralized protocols</div>
+        <br />
         <div className="row">
         <div className="col-sm-12 center">
 
@@ -42,7 +44,9 @@ class Home extends React.Component {
           </div>
         </div>
         <br />
+        <br />
         <div className="row">
+          <div style={smallerStyle}>Buy insurance for protocols like</div>
           <div className="col-sm-12 center">
             <img style={logoStyle} src="/logos/maker.svg" alt="maker-icon" />
             <img style={logoStyle} src="/logos/compound.svg" alt="compound-icon" />
@@ -68,6 +72,13 @@ const defaultFontStyle = {
   textAlign: 'center',
   fontWeight: '700'
 };
+
+const smallerStyle = {
+  fontSize: '30px;',
+  color: 'white',
+  textAlign: 'center',
+  width: '100%'
+}
 
 const logoStyle = {
   padding: '25px'

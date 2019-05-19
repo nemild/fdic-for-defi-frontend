@@ -41,6 +41,7 @@ class Home extends React.Component {
         <div className="row">
         <div className="col-sm-12 center">
           <Button title='Get started' onClick={this.handleGetStarted} style={{cursor: 'pointer'}} invertColors={true} />
+          
           </div>
         </div>
         <br />
@@ -57,8 +58,14 @@ class Home extends React.Component {
             <img style={logoStyle} src='/logos/augur.svg' alt='augur-icon' />
             <img style={logoStyle} src='/logos/cheesewizard.svg' alt='cheesewizard-icon' />
           </div>
-        </div>
 
+        </div>
+        <div className='row'>
+          <div className='col-sm-12 center'>
+
+          <div style={smallestStyle}>And login with</div>
+          <div style={smallerStyle}><a href="https://tor.us">Torus</a></div>
+        </div></div>
       </div>
     );
   }
@@ -71,12 +78,24 @@ const defaultFontStyle = {
   fontWeight: '700'
 };
 
+const torusStyle = {
+  backgroundColor: 'rgba(255,255,255,0.5)'
+};
+
 const smallerStyle = {
   fontSize: '30px',
   color: 'white',
   textAlign: 'center',
   width: '100%'
 }
+
+const smallestStyle = {
+  fontSize: '15 px',
+  color: 'white',
+  textAlign: 'center',
+  width: '100%'
+}
+
 
 const logoStyle = {
   padding: '25px'

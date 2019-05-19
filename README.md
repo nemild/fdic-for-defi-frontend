@@ -1,12 +1,16 @@
 # Defisurance
 *Tagline: FDIC insurance for decentralized deposits*
 
-Website: https://www.defisurance.com
+[Defisurance](https://www.defisurance.com) provides protocol hack insurance for for DeFi deposits. We use [Augur](https://www.augur.net) to protect the cryptocurrency you hold in decentralized protocols.
 
-US banks have FDIC insurance to protect against deposit loss during bank failure. Brand new decentralized finance protocols have no insurance to protect deposits in the event of a hack. [Defisurance](https://www.defisurance.com) provides protocol hack insurance for for DeFi deposits.
+Defisurance supports Torus, Metamask, and Coinbase Wallet — and uses The Graph and Infura as backing infrastructure.
+
+## Description
+US banks have FDIC insurance to protect against deposit loss during bank failure. Brand new decentralized finance protocols have no insurance to protect deposits in the event of a hack.
 
 Defisurance makes it much easier for cryptocurrency investors to choose decentralized protocols, and exponentially unlocks the number of people who will feel comfortable investing using decentralized products. (24 hours after we started this project at EthNY, a 0x developer tweeted about wanting this exact product as it would "drastically improve adoption" )
 
+This is a project started at the [ETH NY 2019 Hackathon](http://ethnewyork.com).
 
 ## How it works
 defisurance allows defi depositors and defi protocol developers to buy insurance for the funds held in decentralized finance protocols like 0x, Dharma, dYdX, and Compound. The insurance is provided through a one-sided bet using Augur (investors in defisurance take the other side of the bet).

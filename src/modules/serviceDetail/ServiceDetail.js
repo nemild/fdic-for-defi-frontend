@@ -8,9 +8,38 @@ import * as CompoundAdapter from '../../lib/CompoundAdapter';
 
 import GlobalContext from '../../GlobalContext';
 
-const green = "#05B169"
-const yellow = "#FFC657"
-const red = "#DF5F67"
+const green = "#05B169";
+const yellow = "#FFC657";
+const red = "#DF5F67";
+
+
+const shortNameLookup = {
+    "0x": {
+        name: '0x',
+        logoPath: '/logos/0x-color.svg'
+    },
+    compound: {
+        name: 'Compound',
+        logoPath: '/logos/compound-color.png'
+    },
+    augur: {
+        name: 'Augur',
+        logoPath: '/logos/augur-color.svg'
+    },
+    dydx: {
+        name: 'dYdX',
+        logoPath: '/logos/dYdX-color.svg'
+    },
+    "cheese-wizard": {
+        name: 'Cheese Wizard',
+        logoPath: '/logos/cheesewizard-color.svg'
+    },
+    maker: {
+        name: 'Maker',
+        logoPath: '/logos/maker-color.svg'
+    },
+
+};
 
 // Should be initialized with an iconUrl, service name, service address, contract value (can be calculated here), 
 // current premium amount and the percentage of the contract value being covered
@@ -34,7 +63,9 @@ class ServiceDetail extends React.Component {
       }
 
       const { match: { params } } = this.props;
-      // console.log(params.serviceShortName); TODO(DQ): Use this where you want
+      this.setState(
+          {shortName: params.serviceShortName}
+      );
 
       let balance = await CompoundAdapter.getBalance(this.context.web3, this.context.userAddress);
       this.setState({contractValue: balance});
@@ -73,10 +104,14 @@ class ServiceDetail extends React.Component {
             }
         ]
 
+        const shortName = this.state.shortName;
+        const imageUrl = shortNameLookup[shortName] && shortNameLookup[shortName].logoPath;
+        const name = shortNameLookup[shortName] && shortNameLookup[shortName].name;
+
         const header = (
             <div>
-                <img src={iconUrl} style={iconStyle} alt="service-icon" />
-                <h2 className="serviceName" style={serviceNameStyle}>{serviceName}</h2>
+                {imageUrl ? <img src={imageUrl} style={iconStyle} alt="service-icon" /> : null}
+                {name ? <h2 className="serviceName" style={serviceNameStyle}>{name}</h2> : null}
                 <p className="serviceAddress" style={serviceAddressStyle}>{address}</p>
             </div>
         )

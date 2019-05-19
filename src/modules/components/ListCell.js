@@ -16,7 +16,7 @@ function ListCell(props) {
         </td>
         <td width="60%">
 
-        <Link to={"/service-detail/" + urlFriendly}><div style={nameStyle}>{props.serviceName}</div></Link>
+        <Link to={"/service-detail/" + urlFriendly}><div style={nameStyle}>{props.servicePrettyName}</div></Link>
             <div style={ethStyle}>{props.eth} ETH</div>
         </td>
         <td style={textStyle} width="10%">

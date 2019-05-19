@@ -5,14 +5,15 @@ import GlobalContext from './GlobalContext';
 import Header from './modules/header/Header';
 import Home from './modules/home/Home';
 import HowItWorks from './modules/home/HowItWorks';
+import InvestNew from './modules/invest/InvestNew';
 import LearnMore from './modules/home/LearnMore';
 import Manual from './modules/manual/Manual';
 import Portfolio from './modules/portfolio/Portfolio';
 import React from 'react';
 import { Route } from 'react-router-dom';
-import Services from './modules/services/Services';
 import ServiceDetail from './modules/serviceDetail/ServiceDetail';
-import InvestNew from './modules/invest/InvestNew';
+import Services from './modules/services/Services';
+import Success from './modules/success/Success';
 // import Invest from './modules/invest/Invest';
 import Web3 from 'web3';
 
@@ -34,10 +35,32 @@ class App extends React.Component {
     this.state.globalContext.setupTorus = this.state.globalContext.setupTorus.bind(this);
   }
 
-  async setupTorus() {
-    console.log('============setupTorus===============')
-    if (!window.web3) {
+  async setupTorus(callback) {
+    console.log('============setupTorus===============') 
+    const handleLoad = async () => {
+      let web3 = new Web3(window.web3.currentProvider)
+      let userAddress = await new Promise((resolve, reject) => {
+        web3.eth.getAccounts().then((accounts) => {
+          resolve(accounts[0] || null);
+        });
+      });
+      let augur = await this.setupAugur();
+      this.setState((state) => {
+        return {
+          ...state,
+          globalContext: {
+            ...state.globalContext,
+            connected: true,
+            web3,
+            userAddress,
+            augur
+          }
+        };
+      });
+      callback();
+    }
 
+    if (!window.web3) {
       // no metamask
       const script = document.createElement("script");
 
@@ -46,29 +69,7 @@ class App extends React.Component {
       script.crossOrigin = "anonymous";
 
       document.body.appendChild(script);
-      setTimeout(async () => {
-        let web3 = new Web3(window.web3.currentProvider)
-      
-        let userAddress = await new Promise((resolve, reject) => {
-          web3.eth.getAccounts().then((accounts) => {
-            resolve(accounts[0] || 'no account found');
-          });
-        });
-        let augur = await this.setupAugur();
-        this.setState((state) => {
-          return {
-            ...state,
-            globalContext: {
-              ...state.globalContext,
-              connected: true,
-              web3,
-              userAddress,
-              augur
-            }
-          };
-        });
-      }, 1000)
-      
+      script.addEventListener('load', handleLoad)
     }
   }
 
@@ -131,6 +132,9 @@ class App extends React.Component {
         </GlobalContext.Provider>
         <GlobalContext.Provider value={this.state.globalContext}>
           <Route path='/service-detail/:serviceShortName' component={ServiceDetail} />
+        </GlobalContext.Provider>
+        <GlobalContext.Provider value={this.state.globalContext}>
+          <Route path='/success' component={Success} />
         </GlobalContext.Provider>
         <GlobalContext.Provider value={this.state.globalContext}>
           <Route path='/manual' render={

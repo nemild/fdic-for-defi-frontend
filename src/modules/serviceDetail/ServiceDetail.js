@@ -1,6 +1,7 @@
 import * as AugurAdapter from '../../lib/AugurAdapter';
 import * as CompoundAdapter from '../../lib/CompoundAdapter';
 
+import {Redirect} from 'react-router-dom';
 import Button from '../shared/Button'
 import GlobalContext from '../../GlobalContext';
 import LineItemCell from '../components/LineItemCell'
@@ -66,7 +67,8 @@ class ServiceDetail extends React.Component {
       netCoverage: 0,
       currentCoveragePercentage: 0,
       market: {},
-      userPosition: [0, 0]
+      userPosition: [0, 0],
+      success: false
     }
 
     this.onClick = this.onClick.bind(this);
@@ -223,6 +225,10 @@ class ServiceDetail extends React.Component {
 
     const body = (
       <div>
+        {
+          this.state.success &&
+            <Redirect to='/success'/>
+        }
         <div>{items}</div>
         <SimpleSlider onChange={(value) => this.onSliderChange(value)}/>
         <p>{this.state.actionMessage}</p>
@@ -293,13 +299,21 @@ class ServiceDetail extends React.Component {
     //console.log('fillorder', result);
 
     // HACK: HARDCODED TX, FOR 0.03 ETH AT A TIME
-    let tx = await this.context.web3.eth.sendTransaction({
-      from: this.context.userAddress,
-      to: '0x4b3a944ca8CE8117EBA411B735bD12Ea5C7b1B10',  // not sure what this is
-      value: '30000000000000000',
-      data: '0x554de08c00000000000000000000000000000000000000000000000000000000000000000000000000000000000000009be31a1d5fa96fbf18779b27cbe62e464af3e2b00000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000012309ce5400000000000000000000000000000000000000000000000000000000000000005dc0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000039169dece54acd772a563dedbf5f64a0a31c2280b4a801b883d9f5b69bd02faf0000000000000000000000000000000000000000000000000000000000000003'
+    let tx = await new Promise((resolve, reject) => {
+      this.context.web3.eth.sendTransaction({
+        from: this.context.userAddress,
+        to: '0x4b3a944ca8CE8117EBA411B735bD12Ea5C7b1B10',  // not sure what this is
+        value: '30000000000000000',
+        data: '0x554de08c00000000000000000000000000000000000000000000000000000000000000000000000000000000000000009be31a1d5fa96fbf18779b27cbe62e464af3e2b00000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000012309ce5400000000000000000000000000000000000000000000000000000000000000005dc0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000039169dece54acd772a563dedbf5f64a0a31c2280b4a801b883d9f5b69bd02faf0000000000000000000000000000000000000000000000000000000000000003'
+      }, (err, hash) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(hash);
+        }
+      });
     });
-    console.log('result', tx);
+    this.setState({success: true});
   }
 }
 

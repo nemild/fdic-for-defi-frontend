@@ -13,6 +13,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import ServiceDetail from './modules/serviceDetail/ServiceDetail';
 import Services from './modules/services/Services';
+import Success from './modules/success/Success';
 // import Invest from './modules/invest/Invest';
 import Web3 from 'web3';
 
@@ -131,6 +132,9 @@ class App extends React.Component {
         </GlobalContext.Provider>
         <GlobalContext.Provider value={this.state.globalContext}>
           <Route path='/service-detail/:serviceShortName' component={ServiceDetail} />
+        </GlobalContext.Provider>
+        <GlobalContext.Provider value={this.state.globalContext}>
+          <Route path='/success' component={Success} />
         </GlobalContext.Provider>
         <GlobalContext.Provider value={this.state.globalContext}>
           <Route path='/manual' render={

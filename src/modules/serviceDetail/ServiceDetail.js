@@ -226,7 +226,7 @@ class ServiceDetail extends React.Component {
     this.setState({
       premiumRequired,
       currentCoveragePercentage,
-      buttonDisabled: value <= this.state.currentCoveragePercentage
+      buttonDisabled: false
     });
   }
 

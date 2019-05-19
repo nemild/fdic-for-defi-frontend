@@ -1,16 +1,16 @@
 import './App.css';
 
 import Augur from 'augur.js';
+import GlobalContext from './GlobalContext';
 import Header from './modules/header/Header';
 import Home from './modules/home/Home';
+import HowItWorks from './modules/home/HowItWorks';
 import Manual from './modules/manual/Manual';
 import Portfolio from './modules/portfolio/Portfolio';
 import React from 'react';
 import { Route } from 'react-router-dom';
 import Services from './modules/services/Services';
 import ServiceDetail from './modules/serviceDetail/ServiceDetail';
-import HowItWorks from './modules/home/HowItWorks';
-import GlobalContext from './GlobalContext';
 import Web3 from 'web3';
 
 class App extends React.Component {

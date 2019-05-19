@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "augur.js": "^6.7.0-1",
+    "bignumber.js": "^8.1.1",
     "rc-slider": "^8.6.11",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",

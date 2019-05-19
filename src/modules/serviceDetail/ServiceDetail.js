@@ -6,15 +6,10 @@ import GlobalContext from '../../GlobalContext';
 import LineItemCell from '../components/LineItemCell'
 import PageCard from '../components/PageCard';
 import React from 'react'
-import SimpleSlider from '../shared/SimpleSlider';
-
-import * as CompoundAdapter from '../../lib/CompoundAdapter';
-import * as AugurAdapter from '../../lib/AugurAdapter';
-
-import GlobalContext from '../../GlobalContext';
-
-import augurAddresses from 'augur.js/src/contracts/addresses.json';
+import SimpleSlider from '../shared/SimpleSlider'
 import augurABIs from 'augur-core/output/contracts/abi.json';
+import augurAddresses from 'augur.js/src/contracts/addresses.json';
+
 const green = "#05B169"
 const yellow = "#FFC657"
 const red = "#DF5F67"

@@ -13,6 +13,7 @@ import { Route } from 'react-router-dom';
 import Services from './modules/services/Services';
 import ServiceDetail from './modules/serviceDetail/ServiceDetail';
 import InvestNew from './modules/invest/InvestNew';
+import Invest from './modules/invest/Invest';
 import Web3 from 'web3';
 
 class App extends React.Component {
@@ -84,6 +85,7 @@ class App extends React.Component {
         </GlobalContext.Provider>
         <Route path='/portfolio' component={Portfolio}/>
         <Route path='/invest-new' component={InvestNew} />
+        <Route path='/invest' component={Invest} />
         <Route path='/learn-more' component={LearnMore}/>
         <GlobalContext.Provider value={this.state.globalContext}>
           <Route path='/services' component={Services} />

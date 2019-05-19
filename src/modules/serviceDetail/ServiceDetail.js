@@ -236,6 +236,8 @@ class ServiceDetail extends React.Component {
         if (this.state.buttonDisabled) {
             return 
         }
+
+        alert('Your buy was successfully submitted!')
       //let bestOrderID = AugurAdapter.bestOrder(
       //await AugurAdapter.fillOrder(
         //this.context.web3,

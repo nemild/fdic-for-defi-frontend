@@ -1,5 +1,6 @@
 # Defisurance
 *Tagline: FDIC insurance for decentralized deposits*
+Website: https://www.defisurance.com
 
 US banks have FDIC insurance to protect against deposit loss during bank failure. Brand new decentralized finance protocols have no insurance to protect deposits in the event of a hack. [Defisurance](https://www.defisurance.com) provides protocol hack insurance for for DeFi deposits.
 

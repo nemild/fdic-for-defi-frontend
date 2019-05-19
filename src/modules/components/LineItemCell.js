@@ -1,7 +1,7 @@
 import React from 'react';
 
 function LineItemCell(props) {
-    const { title, value } = props
+    const { title, subtitle, value } = props
     const { primary, secondary, color } = value
 
     var secondaryRow
@@ -16,7 +16,10 @@ function LineItemCell(props) {
     return (
         <div>
             <div className="row">
-                <div className="flex-fill" style={primaryTitleStyle}>{title}</div>
+                <div className="flex-fill">
+                    <div style={primaryTitleStyle}>{title}</div>
+                    {subtitle ? <div style={secondaryTitleStyle}>{subtitle}</div>: null}
+                </div>
                 <div className="flex-fill" style={primaryValueStyle}>{primary}</div>
             </div>
             {secondaryRow}
@@ -29,8 +32,17 @@ export default LineItemCell
 var primaryTitleStyle = {
     color: "black",
     textAlign: "left",
-    fontSize: "12px"
+    fontSize: "12px",
+    marginBottom: "-6px"
 }
+
+var secondaryTitleStyle = {
+    color: "#aaa",
+    textAlign: "left",
+    fontSize: "10px",
+    marginBottom: "5px"
+}
+
 
 var primaryValueStyle = {
     color: "black",

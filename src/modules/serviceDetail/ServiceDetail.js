@@ -29,13 +29,15 @@ class ServiceDetail extends React.Component {
         
         const lineItems = [
             {
-                title: "CONTRACT VALUE",
+                title: "BALANCE IN PROTOCOL",
+                subtitle: "Total amount you have invested in the protocol",
                 value: {
                     primary: String(contractValue) + "ETH",
                 }
             },
             {
-                title: "CURRENT PREMIUM",
+                title: "PREMIUM PREV PAID",
+                subtitle: "Previous amount you spent to insure your deposits",
                 value: {
                     primary: String(currentPremium) + "ETH",
                     secondary: String(currentCoveragePercentage) + "%",
@@ -43,7 +45,8 @@ class ServiceDetail extends React.Component {
                 }
             },
             {
-                title: "NEW PREMIUM",
+                title: "TOTAL PREMIUM REQUIRED",
+                subtitle: "Pay this total amount to insure all your deposits",
                 value: {
                     primary: "0 ETH",
                     secondary: String(currentCoveragePercentage) + "%",
@@ -62,7 +65,7 @@ class ServiceDetail extends React.Component {
 
         const items = lineItems.map((item, index) => {
             return (
-                <LineItemCell title={item.title} value={item.value}/>
+                <LineItemCell title={item.title} subtitle={item.subtitle} value={item.value}/>
             )
         })
 

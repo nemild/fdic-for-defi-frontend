@@ -13,7 +13,7 @@ class Services extends React.Component {
     super(props);
 
     this.state = {
-      title: 'Your services',
+      title: 'Defi protocols you hold funds on',
       protocols: {
         '0x': {
           eth: 3,

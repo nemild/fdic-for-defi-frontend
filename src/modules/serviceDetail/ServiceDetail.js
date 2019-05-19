@@ -58,22 +58,21 @@ class ServiceDetail extends React.Component {
     }
 
     async componentDidMount() {
+      const { match: { params } } = this.props;
+      this.setState(
+        {shortName: params.serviceShortName}
+      );
       if (!window.web3) {
-        await this.context.setupTorus();
-        await new Promise((resolve, reject) => {
-            setTimeout(() => {
-            resolve();
-            }, 2000)
-        })
+        await this.context.setupTorus(async () => {
+            let balance = await CompoundAdapter.getBalance(this.context.web3, this.context.userAddress);
+            this.setState({contractValue: balance});
+            console.log('balance: ' + balance);
+        });
+        return;
       }
       if (!this.context.connected) {
         await this.context.setupGlobalContext();
       }
-
-      const { match: { params } } = this.props;
-      this.setState(
-          {shortName: params.serviceShortName}
-      );
 
       let balance = await CompoundAdapter.getBalance(this.context.web3, this.context.userAddress);
       this.setState({contractValue: balance});

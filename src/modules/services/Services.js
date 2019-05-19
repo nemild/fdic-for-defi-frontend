@@ -44,18 +44,30 @@ class Services extends React.Component {
   }
 
   async componentDidMount() {
-   if (!window.web3) {
-      await this.context.setupTorus();
-      await new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve();
-        }, 2000)
-      })
-   }
-   
-   if (!this.context.connected) {
+    if (!window.web3) {
+      await this.context.setupTorus(async () => {
+        console.log('balance');
+        let balance = await CompoundAdapter.getBalance(this.context.web3, this.context.userAddress);
+        console.log('balance', balance);
+        this.setState((state) => {
+          return {
+            ...state,
+            protocols: {
+              ...state.protocols,
+              'Compound': {
+                eth: balance,
+                percentage: 78
+              }
+            }
+          };
+        });
+      });
+      return;
+    }
+    if (!this.context.connected) {
       await this.context.setupGlobalContext();
-   }
+    }
+    console.log('balance');
     let balance = await CompoundAdapter.getBalance(this.context.web3, this.context.userAddress);
     console.log('balance', balance);
     this.setState((state) => {

@@ -5,13 +5,16 @@ import React from 'react'
 import SimpleSlider from '../shared/SimpleSlider';
 
 import * as CompoundAdapter from '../../lib/CompoundAdapter';
+import * as AugurAdapter from '../../lib/AugurAdapter';
 
 import GlobalContext from '../../GlobalContext';
 
-const green = "#05B169";
-const yellow = "#FFC657";
-const red = "#DF5F67";
-
+const green = "#05B169"
+const yellow = "#FFC657"
+const red = "#DF5F67"
+const COMPOUND_MARKET = '0x098f27db05e9e466f8b2b3168a8ca9ad5822c7f2';  // Actually dYdX Rinkeby
+const OUTCOME_NO = 0;
+const OUTCOME_YES = 1;  // aka The protocol will get hacked?
 
 const shortNameLookup = {
     "0x": {
@@ -52,9 +55,20 @@ class ServiceDetail extends React.Component {
             actionMessage: "",
             buttonTitle: "Increase coverage",
             buttonDisabled: true,
-            newCoveragePercentageColor: colorForPercentage(props.currentCoveragePercentage),
-            contractValue: 0
+            contractValue: 0,
+            pricePerShare: 0,
+            coveragePerShare: 0,
+            numSharesRequiredForFullCoverage: 0,
+            numSharesRequiredForFullCoverageWithNetCoverage: 0,
+            costForFullCoverageWithNetCoverage: 0,
+            premiumRequired: 0,
+            netCoverage: 0,
+            currentCoveragePercentage: 0,
+            market: {},
+            userPosition: [0, 0]
         }
+
+        this.onClick = this.onClick.bind(this);
     }
 
     async componentDidMount() {
@@ -69,20 +83,74 @@ class ServiceDetail extends React.Component {
       if (!this.context.connected) {
         await this.context.setupGlobalContext();
       }
-
       const { match: { params } } = this.props;
       this.setState(
           {shortName: params.serviceShortName}
       );
+      if (params.serviceShortName === 'compound') {
+        let balance = await CompoundAdapter.getBalance(this.context.web3, this.context.userAddress);
+        this.setState({contractValue: balance});
 
-      let balance = await CompoundAdapter.getBalance(this.context.web3, this.context.userAddress);
-      this.setState({contractValue: balance});
+        await this.getMarketInfo();
+        let result = await AugurAdapter.getPositionInMarket(
+          this.context.web3,
+          this.context.augur,
+          this.context.userAddress,
+          COMPOUND_MARKET,
+          this.state.market.tickSize
+        );
+        let numNoShares = parseFloat(result[0]);
+        let numYesShares = parseFloat(result[1]);
+        this.setState({userPosition: {numNoShares, numYesShares}});
+        this.updateState();
+      } else {
+        console.log('Service not yet supported.');
+      }
     }
 
+  updateState() {
+    let marketInfo = this.state.market;
+    console.log('marketInfo', marketInfo);
+    let pricePerShare = parseFloat(marketInfo.outcomes[OUTCOME_YES].price);
+    let coveragePerShare = 1 - pricePerShare;
+    let numSharesRequiredForFullCoverage = this.state.contractValue / coveragePerShare;
+    let netCoverage = AugurAdapter.getNetCoverage(
+      this.state.userPosition.numNoShares,
+      this.state.userPosition.numYesShares
+    );
+    let costForFullCoverageWithNetCoverage = pricePerShare * numSharesRequiredForFullCoverage - netCoverage;
+    let numSharesRequiredForFullCoverageWithNetCoverage = costForFullCoverageWithNetCoverage / coveragePerShare;
+    console.log('####', netCoverage, this.state);
+    this.setState((state) => {
+      return {
+        ...state,
+        netCoverage,
+        pricePerShare,
+        coveragePerShare,
+        numSharesRequiredForFullCoverage,
+        costForFullCoverageWithNetCoverage,
+        numSharesRequiredForFullCoverageWithNetCoverage,
+        market: marketInfo
+      };
+    });
+  }
+
+  async getMarketInfo() {
+    let result = await new Promise((resolve, reject) => {
+      this.context.augur.markets.getMarketsInfo({
+        marketIds: [COMPOUND_MARKET]
+      }, (err, result) => {
+        window.marketInfo = result;
+        resolve(result);
+      });
+    });
+    let marketInfo = result[0];
+    this.setState({market: marketInfo});
+  }
 
     render() {
-        const { iconUrl, serviceName, address, currentPremium, currentCoveragePercentage } = this.props         
-        const color = colorForPercentage(currentCoveragePercentage)
+        const { iconUrl, serviceName, address, currentPremium} = this.props         
+        const color = colorForPercentage(this.state.currentCoveragePercentage)
         
         const lineItems = [
             {
@@ -96,17 +164,17 @@ class ServiceDetail extends React.Component {
                 title: "PREMIUM PREV PAID",
                 subtitle: "Previous amount you spent to insure your deposits",
                 value: {
-                    primary: String(currentPremium) + "ETH",
-                    secondary: String(currentCoveragePercentage) + "%",
-                    color: color
+                    primary: String(this.state.netCoverage) + " ETH",
+                    secondary: String(this.state.netCoverage / this.state.contractValue * 100) + "%",
+                    color: colorForPercentage(this.state.netCoverage / this.state.contractValue * 100)
                 }
             },
             {
                 title: "TOTAL PREMIUM REQUIRED",
                 subtitle: "Pay this total amount to insure all your deposits",
                 value: {
-                    primary: "0 ETH",
-                    secondary: String(currentCoveragePercentage) + "%",
+                    primary: String(this.state.premiumRequired) + " ETH",
+                    secondary: String(this.state.currentCoveragePercentage) + "%",
                     color: color
                 }
             }
@@ -150,16 +218,31 @@ class ServiceDetail extends React.Component {
     }
 
     onSliderChange(value) {
+      let coverageAmount = this.state.contractValue * value / 100;  // Denominated in ETH
+
+      let currentCoveragePercentage = value;
+      let premiumRequired = this.state.costForFullCoverageWithNetCoverage * value / 100;
+      this.setState({
+        premiumRequired,
+        currentCoveragePercentage,
+        buttonDisabled: false
+      });
         // calculate new premium here
         // set the action message
         // set the button title
-        // set the button enabled
     }
 
     onClick() {
         if (this.state.buttonDisabled) {
             return 
         }
+      //let bestOrderID = AugurAdapter.bestOrder(
+      //await AugurAdapter.fillOrder(
+        //this.context.web3,
+        //this.context.augur,
+        //this.context.userAddress,
+        //COMPOUND_MARKET,
+      //);
 
         // Handle funding the insurance policy
     }

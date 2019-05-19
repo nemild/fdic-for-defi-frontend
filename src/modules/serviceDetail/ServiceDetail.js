@@ -32,6 +32,10 @@ class ServiceDetail extends React.Component {
       if (!this.context.connected) {
         await this.context.setupGlobalContext();
       }
+
+      const { match: { params } } = this.props;
+      // console.log(params.serviceShortName); TODO(DQ): Use this where you want
+
       let balance = await CompoundAdapter.getBalance(this.context.web3, this.context.userAddress);
       this.setState({contractValue: balance});
     }

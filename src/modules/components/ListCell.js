@@ -5,16 +5,18 @@ function ListCell(props) {
   const doneIcon = "./assets/img/svg/done.svg"
   const warningIcon = "./assets/img/svg/warning.svg"
 
+  const urlFriendly = props.serviceName.toLowerCase().replace(/ /gi, '-');
+
   return (
     <tr style={cellStyle}>
         <td width="30%">
-            <Link to={"/service-details/" + props.serviceName.toLowerCase()}>
+            <Link to={"/service-detail/" + urlFriendly}>
                 <img src={props.icon} style={iconStyle} alt="service-icon"/>
             </Link>
         </td>
         <td width="60%">
 
-        <Link to={"/service-details/" + props.serviceName.toLowerCase()}><div style={nameStyle}>{props.serviceName}</div></Link>
+        <Link to={"/service-detail/" + urlFriendly}><div style={nameStyle}>{props.serviceName}</div></Link>
             <div style={ethStyle}>{props.eth} ETH</div>
         </td>
         <td style={textStyle} width="10%">

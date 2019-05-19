@@ -21,9 +21,9 @@ function Header(props) {
                 <li className="nav-item ">
                 <Link to="/invest-new" className="nav-link">Investors</Link>
                 </li>
-                <li className="nav-item ">
+                {/* <li className="nav-item ">
                 <Link to="/developers" className="nav-link">Developers</Link>
-                </li>
+                </li> */}
             </ul>
             </div>
         </div>

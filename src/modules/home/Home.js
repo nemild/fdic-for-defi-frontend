@@ -72,7 +72,7 @@ const defaultFontStyle = {
 };
 
 const smallerStyle = {
-  fontSize: '30px;',
+  fontSize: '30px',
   color: 'white',
   textAlign: 'center',
   width: '100%'
@@ -83,7 +83,7 @@ const logoStyle = {
 }
 
 const logoFont = {
-  fontSize: '60px',
+  fontSize: '60px'
 }
 
 export default Home;

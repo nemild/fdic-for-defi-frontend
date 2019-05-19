@@ -83,7 +83,7 @@ class ServiceDetail extends React.Component {
 
         const items = lineItems.map((item, index) => {
             return (
-                <LineItemCell title={item.title} subtitle={item.subtitle} value={item.value}/>
+                <LineItemCell title={item.title} subtitle={item.subtitle} value={item.value} key={index} />
             )
         })
 

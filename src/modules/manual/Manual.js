@@ -2,12 +2,18 @@ import React from 'react';
 
 import Augur from 'augur.js';
 import Web3 from 'web3';
+import BigNumber from 'bignumber.js';
+
 import augurAddresses from 'augur.js/src/contracts/addresses.json';
 import augurABIs from 'augur-core/output/contracts/abi.json';
 
 import GlobalContext from '../../GlobalContext';
+import MoneyMarketABI from '../../abis/MoneyMarket.json';
+import CEtherABI from '../../abis/CEther.json';
 
 const RINKEBY = 4;
+const BID = '0x0';
+const ASK = '0x1';
 
 class Manual extends React.Component {
   static contextType = GlobalContext;
@@ -21,6 +27,7 @@ class Manual extends React.Component {
 
     this.approve = this.approve.bind(this);
     this.buyShares = this.buyShares.bind(this);
+    this.bestOrder = this.bestOrder.bind(this);
   }
 
   componentDidMount() {
@@ -93,6 +100,44 @@ class Manual extends React.Component {
     ////}, 2000);
   }
 
+
+  async getBalance(project) {
+    console.log('getBalance');
+    if (project === 'COMPOUND') {
+      const cEther = new this.context.web3.eth.Contract(
+        CEtherABI,
+        '0xbed6d9490a7cd81ff0f06f29189160a9641a358f'  // Rinkeby
+      );
+      let balance = await cEther.methods.balanceOfUnderlying(this.context.userAddress)
+        .call({from: this.context.userAddress});
+      console.log('balance', balance.toString());
+    } else {
+      console.log('Project not supported');
+    }
+  }
+
+  async bestOrder() {
+    console.log('market', this.props.market);
+    let bestOrderID = await new Promise((resolve, reject) => {
+      this.context.augur.api.Orders.getBestOrderId({
+        _type: BID,
+        _market: this.props.market,
+        _outcome: '0x1'
+      }, function (error, bestOrderID) { 
+        console.log('bestOrderID', bestOrderID); 
+        resolve(bestOrderID);
+      });
+    });
+    let amount = await new Promise((resolve, reject) => {
+      this.context.augur.api.Orders.getAmount({
+        _orderId: bestOrderID
+      }, function (error, amount) {
+        resolve(amount);
+      });
+    });
+    console.log('amount', amount);
+  }
+
   async buyShares() {
     let AUGUR_ADDRESS = augurAddresses[4].Augur;
     this.context.augur.api.Cash.allowance({
@@ -117,6 +162,12 @@ class Manual extends React.Component {
         </button>
         <button onClick={this.approve}>
           Approve WETH
+        </button>
+        <button onClick={this.bestOrder}>
+          Best Order
+        </button>
+        <button onClick={() => { this.getBalance('COMPOUND'); }}>
+          Get Balance
         </button>
         {
           this.state.loading && <div>

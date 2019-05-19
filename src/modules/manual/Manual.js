@@ -31,7 +31,14 @@ class Manual extends React.Component {
   }
 
   async componentDidMount() {
-    this.context.setupTorus();
+    if (!window.web3) {
+      await this.context.setupTorus();
+      await new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve();
+        }, 2000)
+      })
+    }
     if (!this.context.connected) {
       await this.context.setupGlobalContext();
     }

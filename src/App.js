@@ -35,7 +35,7 @@ class App extends React.Component {
   }
 
   async setupTorus() {
-    console.log('============setupTorus')
+    console.log('============setupTorus===============')
     if (!window.web3) {
 
       // no metamask
@@ -47,8 +47,6 @@ class App extends React.Component {
 
       document.body.appendChild(script);
       setTimeout(async () => {
-        console.log('------------')
-        console.log(window.web3);
         let web3 = new Web3(window.web3.currentProvider)
       
         let userAddress = await new Promise((resolve, reject) => {
@@ -91,8 +89,6 @@ class App extends React.Component {
   }
 
   async setupGlobalContext() {
-    console.log('--------------')
-    console.log(window.web3);
     if (window.ethereum) {
       await window.ethereum.enable();
     } else {

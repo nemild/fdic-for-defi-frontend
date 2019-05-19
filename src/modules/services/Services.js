@@ -5,7 +5,6 @@ import * as CompoundAdapter from '../../lib/CompoundAdapter';
 import { toNormalUnit, toBaseUnit } from '../../lib/utils';
 
 import GlobalContext from '../../GlobalContext';
-import Web3 from 'web3';
 
 class Services extends React.Component {
   static contextType = GlobalContext;

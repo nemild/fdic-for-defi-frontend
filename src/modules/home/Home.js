@@ -73,7 +73,8 @@ class Home extends React.Component {
           <div className='col-sm-12 center'>
 
           <div style={smallestStyle}>And login with</div>
-          <div style={smallerStyle}><a href="https://tor.us">Torus</a></div>
+          
+          <div style={smallerStyle}><a href="https://tor.us"><img src="/assets/img/torus-logo-new.png" style={torusLogo}></img></a></div>
         </div></div>
       </div>
     );
@@ -104,6 +105,10 @@ const smallestStyle = {
   textAlign: 'center',
   width: '100%'
 }
+
+const torusLogo = {
+  maxWidth: '60px'
+};
 
 
 const logoStyle = {

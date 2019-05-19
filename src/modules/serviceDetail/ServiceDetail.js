@@ -9,6 +9,9 @@ import * as AugurAdapter from '../../lib/AugurAdapter';
 
 import GlobalContext from '../../GlobalContext';
 
+import augurAddresses from 'augur.js/src/contracts/addresses.json';
+import augurABIs from 'augur-core/output/contracts/abi.json';
+
 const green = "#05B169"
 const yellow = "#FFC657"
 const red = "#DF5F67"
@@ -232,12 +235,27 @@ class ServiceDetail extends React.Component {
     // set the button title
   }
 
-  onClick() {
+  async onClick() {
     if (this.state.buttonDisabled) {
       return 
     }
 
-    alert('Your buy was successfully submitted!')
+    let web3 = this.context.web3;
+    const cashContract = new web3.eth.Contract(
+      augurABIs.Cash,
+      augurAddresses[4].Cash
+    );
+    await cashContract.methods.approve(
+      augurAddresses[4].Augur,
+      1283877)
+      .send({
+        from: this.context.userAddress
+      })
+      .catch(alert)
+      .finally(() => {
+        alert('Your buy was successfully submitted!')
+      });
+
     //let bestOrderID = AugurAdapter.bestOrder(
     //await AugurAdapter.fillOrder(
     //this.context.web3,

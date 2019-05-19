@@ -34,10 +34,6 @@ class App extends React.Component {
     this.state.globalContext.setupTorus = this.state.globalContext.setupTorus.bind(this);
   }
 
-  componentDidMount() {
-    this.setupTorus();
-  }
-
   async setupTorus() {
     console.log('============setupTorus')
     if (!window.web3) {

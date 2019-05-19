@@ -5,6 +5,7 @@ import * as CompoundAdapter from '../../lib/CompoundAdapter';
 import { toNormalUnit, toBaseUnit } from '../../lib/utils';
 
 import GlobalContext from '../../GlobalContext';
+import Web3 from 'web3';
 
 class Services extends React.Component {
   static contextType = GlobalContext;
@@ -44,17 +45,18 @@ class Services extends React.Component {
   }
 
   async componentDidMount() {
-   // if (!window.web3) {
+   if (!window.web3) {
       await this.context.setupTorus();
       await new Promise((resolve, reject) => {
         setTimeout(() => {
           resolve();
         }, 2000)
       })
-    
-    if (!this.context.connected) {
+   }
+   
+   if (!this.context.connected) {
       await this.context.setupGlobalContext();
-    }
+   }
     let balance = await CompoundAdapter.getBalance(this.context.web3, this.context.userAddress);
     console.log('balance', balance);
     this.setState((state) => {

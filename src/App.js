@@ -88,7 +88,9 @@ class App extends React.Component {
         <Route path='/invest-new' component={InvestNew} />
         <Route path='/learn-more' component={LearnMore}/>
         <GlobalContext.Provider value={this.state.globalContext}>
-          <Route path='/manual' component={Manual}/>
+          <Route path='/manual' render={
+            (props) => <Manual market={'0x098f27db05e9e466f8b2b3168a8ca9ad5822c7f2'} />
+          }/>
         </GlobalContext.Provider>
       </div>
     );

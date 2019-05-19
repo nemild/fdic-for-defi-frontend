@@ -19,7 +19,7 @@ function Header(props) {
                 <Link to="/howitworks" className="nav-link">How it works</Link>
                 </li>
                 <li className="nav-item ">
-                <Link to="/investors" className="nav-link">Investors</Link>
+                <Link to="/invest-new" className="nav-link">Investors</Link>
                 </li>
                 <li className="nav-item ">
                 <Link to="/developers" className="nav-link">Developers</Link>

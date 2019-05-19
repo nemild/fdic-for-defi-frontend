@@ -23,7 +23,7 @@ function InvestNew(props) {
 
     const body = (
         <div>
-            <div className="form-group">
+            <div className="form-group" style={formStyle}>
                 <input className="form-control" type="text" placeholder="Enter ETH amount"></input>
             </div>
             <div style={explaninationStyle}>
@@ -50,6 +50,11 @@ const titleStyle = {
 const subtitleStyle = {
     fontSize: '16px',
     color: '#000000'
+}
+
+const formStyle = {
+    marginTop: '12px',
+    marginBottom: '40px'
 }
 
 const explaninationStyle = {

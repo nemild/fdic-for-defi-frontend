@@ -56,7 +56,7 @@ class ServiceDetail extends React.Component {
 
         const header = (
             <div>
-                <img src={iconUrl} style={iconStyle}/>
+                <img src={iconUrl} style={iconStyle} alt="service-icon" />
                 <h2 className="serviceName" style={serviceNameStyle}>{serviceName}</h2>
                 <p className="serviceAddress" style={serviceAddressStyle}>{address}</p>
             </div>

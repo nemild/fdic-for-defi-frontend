@@ -18,6 +18,15 @@ class Home extends React.Component {
   }
 
   async handleGetStarted() {
+    if (!window.web3) {
+      await this.context.setupTorus();
+      await new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve();
+        }, 2000)
+      })
+   }
+   
     console.log('handleGetStarted');
     this.context.setupGlobalContext();
     this.setState({start: true});

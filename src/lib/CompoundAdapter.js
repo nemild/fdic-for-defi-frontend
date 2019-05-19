@@ -12,6 +12,9 @@ async function getBalance(web3, account) {
   );
   let result = await cEther.methods.balanceOfUnderlying(account)
     .call({from: account});
+  if (!result) {
+    return 0;
+  }
   let balance = toNormalUnit(result.toString(), DECIMALS);
   return balance;
 }

@@ -91,7 +91,7 @@ class App extends React.Component {
           <Route path='/services' component={Services} />
         </GlobalContext.Provider>
         <GlobalContext.Provider value={this.state.globalContext}>
-          <Route path='/service-detail' component={ServiceDetail} />
+          <Route path='/service-detail/:serviceShortName' component={ServiceDetail} />
         </GlobalContext.Provider>
         <GlobalContext.Provider value={this.state.globalContext}>
           <Route path='/manual' render={

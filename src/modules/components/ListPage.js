@@ -7,6 +7,9 @@ function ListPage(props) {
     <div>
         <div className="title">{props.title}</div>
         <div className="subtitle">{props.address}</div>
+        <br />
+        <div>Pick a protocol to get insurance for</div>
+
     </div>
   )
 
@@ -45,12 +48,12 @@ function ListPage(props) {
                 {protocols.map((list, id) => {
                     return(
                         <ListCell
-                            key={id}
-                            icon={list.icon}
-                            serviceName={list.serviceName}
-                            eth={props.lists[list.serviceName].eth}
-                            percentage={props.lists[list.serviceName].percentage}
-                        />
+                              key={id}
+                              icon={list.icon}
+                              serviceName={list.serviceName}
+                              eth={props.lists[list.serviceName].eth}
+                              percentage={props.lists[list.serviceName].percentage}
+                          />
                     )
                 })}
             </tbody>
@@ -60,10 +63,12 @@ function ListPage(props) {
   )
 
   return (
-    <PageCard
+    <div>
+      <PageCard
         header={header}
         body={body}
     />
+    </div>
   );
 }
   

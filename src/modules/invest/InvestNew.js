@@ -16,7 +16,7 @@ function InvestNew(props) {
                 Invest
             </div>
             <div style={subtitleStyle}>
-                Invest in the insurance pool.
+                Invest in the insurance pool. Make defisurance cheaper for the community, while earning a diversified return. You'll buy a diversified set of Augur tokens that bet that DeFi protocols will remain secure.
             </div>
         </div>
     )

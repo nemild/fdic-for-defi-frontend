@@ -1,12 +1,11 @@
 import React from 'react';
 import ListPage from '../components/ListPage';
 
+import * as CompoundAdapter from '../../lib/CompoundAdapter';
 import { toNormalUnit, toBaseUnit } from '../../lib/utils';
 
 import GlobalContext from '../../GlobalContext';
-import CEtherABI from '../../abis/CEther.json';
 
-const DECIMALS = 18;
 class Services extends React.Component {
   static contextType = GlobalContext;
 
@@ -14,7 +13,7 @@ class Services extends React.Component {
     super(props);
 
     this.state = {
-      title: 'Your services',
+      title: 'Defi protocols you hold funds on',
       protocols: {
         '0x': {
           eth: 3,
@@ -48,15 +47,8 @@ class Services extends React.Component {
     if (!this.context.connected) {
       await this.context.setupGlobalContext();
     }
-    console.log('getBalance');
-    console.log('context', this.context);
-    const cEther = new this.context.web3.eth.Contract(
-      CEtherABI,
-      '0xbed6d9490a7cd81ff0f06f29189160a9641a358f'  // Rinkeby
-    );
-    let result = await cEther.methods.balanceOfUnderlying(this.context.userAddress)
-      .call({from: this.context.userAddress});
-    let balance = toNormalUnit(result.toString(), DECIMALS);
+    let balance = await CompoundAdapter.getBalance(this.context.web3, this.context.userAddress);
+    console.log('balance', balance);
     this.setState((state) => {
       return {
         ...state,

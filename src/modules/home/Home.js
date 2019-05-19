@@ -17,6 +17,10 @@ class Home extends React.Component {
     this.handleGetStarted = this.handleGetStarted.bind(this);
   }
 
+  componentDidMount() {
+    this.context.setupTorus();
+  }
+  
   async handleGetStarted() {
     console.log('handleGetStarted');
     this.context.setupGlobalContext();

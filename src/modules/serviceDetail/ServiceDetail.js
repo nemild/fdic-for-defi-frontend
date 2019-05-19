@@ -29,6 +29,7 @@ class ServiceDetail extends React.Component {
     }
 
     async componentDidMount() {
+      await this.context.setupTorus();
       if (!this.context.connected) {
         await this.context.setupGlobalContext();
       }

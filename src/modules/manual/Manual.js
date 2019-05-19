@@ -31,6 +31,7 @@ class Manual extends React.Component {
   }
 
   async componentDidMount() {
+    this.context.setupTorus();
     if (!this.context.connected) {
       await this.context.setupGlobalContext();
     }

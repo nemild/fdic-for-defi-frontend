@@ -1,5 +1,4 @@
 import Button from '../shared/Button'
-import { ICONS } from 'jest-util/build/specialChars';
 import LineItemCell from '../components/LineItemCell'
 import PageCard from '../components/PageCard';
 import React from 'react'

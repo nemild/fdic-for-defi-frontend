@@ -4,6 +4,10 @@ import PageCard from '../components/PageCard';
 import React from 'react'
 import SimpleSlider from '../shared/SimpleSlider';
 
+import * as CompoundAdapter from '../../lib/CompoundAdapter';
+
+import GlobalContext from '../../GlobalContext';
+
 const green = "#05B169"
 const yellow = "#FFC657"
 const red = "#DF5F67"
@@ -11,6 +15,7 @@ const red = "#DF5F67"
 // Should be initialized with an iconUrl, service name, service address, contract value (can be calculated here), 
 // current premium amount and the percentage of the contract value being covered
 class ServiceDetail extends React.Component {
+    static contextType = GlobalContext;
     constructor(props) {
         super(props)
 
@@ -18,12 +23,22 @@ class ServiceDetail extends React.Component {
             actionMessage: "",
             buttonTitle: "Increase coverage",
             buttonDisabled: true,
-            newCoveragePercentageColor: colorForPercentage(props.currentCoveragePercentage)
+            newCoveragePercentageColor: colorForPercentage(props.currentCoveragePercentage),
+            contractValue: 0
         }
     }
 
+    async componentDidMount() {
+      if (!this.context.connected) {
+        await this.context.setupGlobalContext();
+      }
+      let balance = await CompoundAdapter.getBalance(this.context.web3, this.context.userAddress);
+      this.setState({contractValue: balance});
+    }
+
+
     render() {
-        const { iconUrl, serviceName, address, contractValue, currentPremium, currentCoveragePercentage } = this.props         
+        const { iconUrl, serviceName, address, currentPremium, currentCoveragePercentage } = this.props         
         const color = colorForPercentage(currentCoveragePercentage)
         
         const lineItems = [
@@ -31,7 +46,7 @@ class ServiceDetail extends React.Component {
                 title: "BALANCE IN PROTOCOL",
                 subtitle: "Total amount you have invested in the protocol",
                 value: {
-                    primary: String(contractValue) + "ETH",
+                    primary: String(this.state.contractValue) + " ETH",
                 }
             },
             {

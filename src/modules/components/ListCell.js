@@ -1,5 +1,5 @@
-import React from 'react';
 import { Link } from 'react-router-dom'
+import React from 'react';
 
 function ListCell(props) {
   const doneIcon = "./assets/img/svg/done.svg"
@@ -57,11 +57,13 @@ const textStyle = {
 
 const nameStyle = {
     fontSize: '18px',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    paddingLeft: "16px"
 }
 
 const ethStyle = {
-    fontSize: '14px'
+    fontSize: '14px',
+    paddingLeft: "16px"
 }
 
 const percentageIconStyle = {

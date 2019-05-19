@@ -5,14 +5,14 @@ import GlobalContext from './GlobalContext';
 import Header from './modules/header/Header';
 import Home from './modules/home/Home';
 import HowItWorks from './modules/home/HowItWorks';
+import InvestNew from './modules/invest/InvestNew';
 import LearnMore from './modules/home/LearnMore';
 import Manual from './modules/manual/Manual';
 import Portfolio from './modules/portfolio/Portfolio';
 import React from 'react';
 import { Route } from 'react-router-dom';
-import Services from './modules/services/Services';
 import ServiceDetail from './modules/serviceDetail/ServiceDetail';
-import InvestNew from './modules/invest/InvestNew';
+import Services from './modules/services/Services';
 // import Invest from './modules/invest/Invest';
 import Web3 from 'web3';
 

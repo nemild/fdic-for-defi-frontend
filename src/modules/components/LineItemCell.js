@@ -14,7 +14,7 @@ function LineItemCell(props) {
     }
 
     return (
-        <div>
+        <div style={cellStyle}>
             <div className="row">
                 <div className="flex-fill">
                     <div style={primaryTitleStyle}>{title}</div>
@@ -28,6 +28,11 @@ function LineItemCell(props) {
 }
 
 export default LineItemCell
+
+var cellStyle = {
+    paddingTop: "24px",
+    paddingBottom: "24px"
+}
 
 var primaryTitleStyle = {
     color: "black",

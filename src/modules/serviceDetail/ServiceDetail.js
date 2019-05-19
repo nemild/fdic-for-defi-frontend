@@ -1,4 +1,8 @@
+import * as AugurAdapter from '../../lib/AugurAdapter';
+import * as CompoundAdapter from '../../lib/CompoundAdapter';
+
 import Button from '../shared/Button'
+import GlobalContext from '../../GlobalContext';
 import LineItemCell from '../components/LineItemCell'
 import PageCard from '../components/PageCard';
 import React from 'react'
@@ -11,7 +15,6 @@ import GlobalContext from '../../GlobalContext';
 
 import augurAddresses from 'augur.js/src/contracts/addresses.json';
 import augurABIs from 'augur-core/output/contracts/abi.json';
-
 const green = "#05B169"
 const yellow = "#FFC657"
 const red = "#DF5F67"
@@ -160,7 +163,7 @@ class ServiceDetail extends React.Component {
         title: "BALANCE IN PROTOCOL",
         subtitle: "Total amount you have invested in the protocol",
         value: {
-          primary: String(this.state.contractValue) + " ETH",
+          primary: String(this.state.contractValue).substring(0, 4) + " ETH",
         }
       },
       {
@@ -176,7 +179,7 @@ class ServiceDetail extends React.Component {
         title: "TOTAL PREMIUM REQUIRED",
         subtitle: "Pay this total amount to insure all your deposits",
         value: {
-          primary: String(this.state.premiumRequired) + " ETH",
+          primary: String(this.state.premiumRequired).substring(0, 4) + " ETH",
           secondary: String(this.state.currentCoveragePercentage) + "%",
           color: color
         }
@@ -228,11 +231,8 @@ class ServiceDetail extends React.Component {
     this.setState({
       premiumRequired,
       currentCoveragePercentage,
-      buttonDisabled: false
+      buttonDisabled: value <= this.state.currentCoveragePercentage
     });
-    // calculate new premium here
-    // set the action message
-    // set the button title
   }
 
   async onClick() {
@@ -273,7 +273,6 @@ export default ServiceDetail;
 var iconStyle = {
   width: "52px",
   height: "52px",
-  borderRadius: "26px",
   marginLeft: "auto",
   marginRight: "auto",
   display: "block"

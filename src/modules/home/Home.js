@@ -27,7 +27,7 @@ class Home extends React.Component {
     return (
       <div className='container'>
         {
-          this.state.start && <Redirect to='/manual'/>
+          this.state.start && <Redirect to='/services'/>
         }
         <div className='row'>
           <div className='col-sm-12 center'>

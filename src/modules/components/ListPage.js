@@ -29,7 +29,7 @@ function ListPage(props) {
     },
     {
       icon: "./logos/dydx-color.svg",
-      serviceName: "Dydx",
+      serviceName: "dYdX",
     },
     {
       icon: "./logos/maker-color.svg",

@@ -30,9 +30,9 @@ class Manual extends React.Component {
     this.bestOrder = this.bestOrder.bind(this);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     if (!this.context.connected) {
-      this.context.setupGlobalContext();
+      await this.context.setupGlobalContext();
     }
     console.log('context', this.context);
   }

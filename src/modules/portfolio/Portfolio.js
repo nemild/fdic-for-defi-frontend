@@ -21,7 +21,7 @@ function Portfolio() {
       eth: 3,
       percentage: 5,
     },
-    "Dydx": {
+    "dYdX": {
       eth: 3,
       percentage: 5,
     },

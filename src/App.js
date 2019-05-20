@@ -57,7 +57,9 @@ class App extends React.Component {
           }
         };
       });
-      callback();
+      if (callback) {
+        callback();
+      }
     }
 
     if (!window.web3) {

@@ -64,6 +64,13 @@ class Home extends React.Component {
           </div>
 
         </div>
+        <div className='row'>
+          <div className='col-sm-12 center'>
+
+          <div style={smallestStyle}>And login with</div>
+          
+          <div style={smallerStyle}><a href="https://tor.us"><img src="/assets/img/torus-logo-new.png" style={torusLogo}></img></a></div>
+        </div></div>
       </div>
     );
   }
